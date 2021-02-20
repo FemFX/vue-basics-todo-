@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue</title>
+    <link rel="stylesheet" href="theme.css" />
+</head>
+
+<body>
+    <div class="container pt-5" id="app">
+        <div class="card">
+            <h1 :style="{color : value.length < 5 ? 'darked' : '#c0c0c0'}">{{title}}</h1>
+            <div class="form-control">
+                <input type="text" :placeholder="placeholder" v-model="value" @keypress.enter="addNote" />
+            </div>
+
+            <button class="btn" @click="addNote">Добавить</button>
+            <hr />
+            <ul class="list" v-for="(note,idx) in notes" v-if="notes.length">
+                <li class="list-item" v-if="note">
+                    <span :class="[bold, {'primary' : note.length > 5 }]">{{idx+1}}.{{note}}</span>
+                    <button class="btn danger" @click="deleteNote(idx, $event)">
+                        Удалить
+                    </button>
+                </li>
+            </ul>
+            <div v-if="notes.length">
+                <hr />
+                <strong>Общее количество : {{notes.length}}</strong>
+            </div>
+
+            <div v-if="!notes.length" :class="{ 'bold' : true }">Заметок пока нет...</div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="module">
+        import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js";
+    </script>
+    <script src="app.js" defer></script>
+</body>
+
+</html>
